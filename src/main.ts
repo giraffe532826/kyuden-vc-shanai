@@ -1,60 +1,99 @@
 import './style.css'
-import heroImg from './assets/hero.png'
-import typescriptLogo from './assets/typescript.svg'
-import viteLogo from './assets/vite.svg'
-import { setupCounter } from './counter.ts'
+import headerLogo from './assets/header/logo-vc.svg'
+import logoStroke from './assets/fv/logo-stroke.svg?raw'
+import logoDetail from './assets/fv/logo-detail-clean.svg?raw'
+import kachiso from './assets/fv/kachiso-asset.svg?raw'
+import patternFigma from './assets/fv/pattern-figma-clean.svg?raw'
+import { playFvAnimation } from './animate'
 
-document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-<section id="center">
-  <div class="hero">
-    <img src="${heroImg}" class="base" width="170" height="179">
-    <img src="${typescriptLogo}" class="framework" alt="TypeScript logo"/>
-    <img src="${viteLogo}" class="vite" alt="Vite logo" />
-  </div>
-  <div>
-    <h1>Get started</h1>
-    <p>Edit <code>src/main.ts</code> and save to test <code>HMR</code></p>
-  </div>
-  <button id="counter" type="button" class="counter"></button>
-</section>
+const navItems = [
+  { label: 'プロジェクト紹介', href: '#project' },
+  { label: 'イノベーションの進め方', href: '#innovation' },
+  { label: '学ぶ・調べる', href: '#learn' },
+  { label: 'お知らせ・レポート', href: '#news' },
+] as const
 
-<div class="ticks"></div>
+const app = document.querySelector<HTMLDivElement>('#app')!
 
-<section id="next-steps">
-  <div id="docs">
-    <svg class="icon" role="presentation" aria-hidden="true"><use href="/icons.svg#documentation-icon"></use></svg>
-    <h2>Documentation</h2>
-    <p>Your questions, answered</p>
-    <ul>
-      <li>
-        <a href="https://vite.dev/" target="_blank">
-          <img class="logo" src="${viteLogo}" alt="" />
-          Explore Vite
-        </a>
-      </li>
-      <li>
-        <a href="https://www.typescriptlang.org" target="_blank">
-          <img class="button-icon" src="${typescriptLogo}" alt="">
-          Learn more
-        </a>
-      </li>
-    </ul>
-  </div>
-  <div id="social">
-    <svg class="icon" role="presentation" aria-hidden="true"><use href="/icons.svg#social-icon"></use></svg>
-    <h2>Connect with us</h2>
-    <p>Join the Vite community</p>
-    <ul>
-      <li><a href="https://github.com/vitejs/vite" target="_blank"><svg class="button-icon" role="presentation" aria-hidden="true"><use href="/icons.svg#github-icon"></use></svg>GitHub</a></li>
-      <li><a href="https://chat.vite.dev/" target="_blank"><svg class="button-icon" role="presentation" aria-hidden="true"><use href="/icons.svg#discord-icon"></use></svg>Discord</a></li>
-      <li><a href="https://x.com/vite_js" target="_blank"><svg class="button-icon" role="presentation" aria-hidden="true"><use href="/icons.svg#x-icon"></use></svg>X.com</a></li>
-      <li><a href="https://bsky.app/profile/vite.dev" target="_blank"><svg class="button-icon" role="presentation" aria-hidden="true"><use href="/icons.svg#bluesky-icon"></use></svg>Bluesky</a></li>
-    </ul>
-  </div>
-</section>
+const mount = () => {
+  app.innerHTML = `
+    <div class="fv">
+      <header class="site-header" data-node-id="111:10834">
+        <div class="site-header__inner">
+          <a class="site-header__brand" href="/">
+            <img
+              class="site-header__logo"
+              src="${headerLogo}"
+              width="114.505"
+              height="40.529"
+              alt=""
+            />
+            <p class="site-header__title">KYUDEN VC CHALLENGE</p>
+          </a>
+          <nav class="site-header__nav" aria-label="メインナビゲーション">
+            <ul class="site-header__nav-list">
+              ${navItems
+                .map(
+                  (item) => `
+                <li class="site-header__nav-item">
+                  <a class="site-header__nav-link" href="${item.href}">${item.label}</a>
+                </li>
+              `,
+                )
+                .join('')}
+            </ul>
+          </nav>
+        </div>
+      </header>
 
-<div class="ticks"></div>
-<section id="spacer"></section>
-`
+      <section class="fv-hero" aria-label="ファーストビュー">
+        <div class="fv-pattern" aria-hidden="true">${patternFigma}</div>
 
-setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
+        <div class="fv-logo" aria-hidden="true">
+          <div class="fv-logo__layer fv-logo__simple">${logoStroke}</div>
+          <div class="fv-logo__layer fv-logo__detail">${logoDetail}</div>
+          <div class="fv-kachiso">${kachiso}</div>
+        </div>
+
+        <h1 class="fv-title">KYUDEN VC CHALLENGE</h1>
+        <p class="fv-tagline">「かけあわせ」から生まれる、新しい価値。</p>
+      </section>
+
+      <button class="fv-replay" type="button">もう一度再生</button>
+    </div>
+  `
+
+  const header = app.querySelector<HTMLElement>('.site-header')!
+  const headerInner = app.querySelector<HTMLElement>('.site-header__inner')!
+  const logo = app.querySelector<HTMLElement>('.fv-logo')!
+  const title = app.querySelector<HTMLElement>('.fv-title')!
+  const tagline = app.querySelector<HTMLElement>('.fv-tagline')!
+  const pattern = app.querySelector<HTMLElement>('.fv-pattern')!
+  const kachisoPaths = [
+    ...app.querySelectorAll<SVGPathElement>('.fv-kachiso path'),
+  ]
+  const strokePaths = [
+    ...app.querySelectorAll<SVGPathElement>('.fv-logo__simple .draw-stroke'),
+  ]
+  const replay = app.querySelector<HTMLButtonElement>('.fv-replay')!
+
+  const run = () =>
+    playFvAnimation({
+      header,
+      headerInner,
+      logo,
+      title,
+      tagline,
+      pattern,
+      kachisoPaths,
+      strokePaths,
+    })
+
+  replay.addEventListener('click', () => {
+    void run()
+  })
+
+  void run()
+}
+
+mount()

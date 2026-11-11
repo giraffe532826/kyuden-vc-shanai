@@ -1,0 +1,75 @@
+<svg viewBox="0 0 532.002 192.439" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <!-- Thick simple logo (flat ends), uniformly scaled into detail frame -->
+  <g class="logo-part logo-part--x">
+    <path
+      class="draw-stroke"
+      data-draw="x-blue-a"
+      d="M10.016 177.93 L35.866 152.08"
+      stroke="#008BCF"
+      stroke-width="28.36"
+      stroke-linecap="butt"
+      stroke-linejoin="miter"
+    />
+    <path
+      class="draw-stroke"
+      data-draw="x-blue-b"
+      d="M55.925 132.011 L81.775 106.161"
+      stroke="#008BCF"
+      stroke-width="28.36"
+      stroke-linecap="butt"
+    />
+    <path
+      class="draw-stroke"
+      data-draw="x-orange-a"
+      d="M10.044 106.18 L35.894 132.029"
+      stroke="#EB663A"
+      stroke-width="28.36"
+      stroke-linecap="butt"
+    />
+    <path
+      class="draw-stroke"
+      data-draw="x-orange-b"
+      d="M55.936 152.061 L81.785 177.91"
+      stroke="#EB663A"
+      stroke-width="28.36"
+      stroke-linecap="butt"
+    />
+  </g>
+
+  <path
+    class="draw-stroke"
+    data-draw="v"
+    d="M100.579 5.436 L185.457 164.058 L286.762 49.507"
+    stroke="#008BCF"
+    stroke-width="28.96"
+    stroke-linecap="butt"
+    stroke-linejoin="miter"
+  />
+
+  <path
+    class="draw-stroke"
+    data-draw="c"
+    d="M367.951 36.727 A70.503 70.503 0 1 0 405.865 111.061"
+    stroke="#EB663A"
+    stroke-width="28.98"
+    stroke-linecap="butt"
+    style="mix-blend-mode: multiply"
+  />
+
+  <path
+    class="draw-stroke"
+    data-draw="bang-bar"
+    d="M518.44 3.828 L465.281 141.02"
+    stroke="#008BCF"
+    stroke-width="28.96"
+    stroke-linecap="butt"
+  />
+  <path
+    class="draw-stroke"
+    data-draw="bang-dot"
+    d="M438.259 170.651 L465.263 181.114"
+    stroke="#EB663A"
+    stroke-width="27.1"
+    stroke-linecap="butt"
+  />
+</svg>
