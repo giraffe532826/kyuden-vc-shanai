@@ -30,7 +30,18 @@ const mount = () => {
             />
             <p class="site-header__title">KYUDEN VC CHALLENGE</p>
           </a>
-          <nav class="site-header__nav" aria-label="メインナビゲーション">
+          <button
+            class="site-header__menu-btn"
+            type="button"
+            aria-label="メニューを開く"
+            aria-expanded="false"
+            aria-controls="site-nav"
+          >
+            <span class="site-header__menu-bar" aria-hidden="true"></span>
+            <span class="site-header__menu-bar" aria-hidden="true"></span>
+            <span class="site-header__menu-bar" aria-hidden="true"></span>
+          </button>
+          <nav class="site-header__nav" id="site-nav" aria-label="メインナビゲーション">
             <ul class="site-header__nav-list">
               ${navItems
                 .map(
@@ -76,6 +87,26 @@ const mount = () => {
     ...app.querySelectorAll<SVGPathElement>('.fv-logo__simple .draw-stroke'),
   ]
   const replay = app.querySelector<HTMLButtonElement>('.fv-replay')!
+  const menuBtn = app.querySelector<HTMLButtonElement>('.site-header__menu-btn')!
+  const nav = app.querySelector<HTMLElement>('.site-header__nav')!
+
+  const setMenuOpen = (open: boolean) => {
+    header.classList.toggle('is-menu-open', open)
+    menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false')
+    menuBtn.setAttribute('aria-label', open ? 'メニューを閉じる' : 'メニューを開く')
+  }
+
+  menuBtn.addEventListener('click', () => {
+    setMenuOpen(!header.classList.contains('is-menu-open'))
+  })
+
+  nav.querySelectorAll<HTMLAnchorElement>('.site-header__nav-link').forEach((link) => {
+    link.addEventListener('click', () => setMenuOpen(false))
+  })
+
+  window.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') setMenuOpen(false)
+  })
 
   const run = () =>
     playFvAnimation({

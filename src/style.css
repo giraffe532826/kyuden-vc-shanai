@@ -54,6 +54,11 @@ body {
 
 .site-header.is-settled {
   height: var(--header-height);
+  overflow: visible;
+}
+
+.site-header.is-settled.is-menu-open {
+  z-index: 40;
 }
 
 .site-header__inner {
@@ -90,6 +95,43 @@ body {
   letter-spacing: 3.13px;
   line-height: normal;
   white-space: nowrap;
+}
+
+.site-header__menu-btn {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 44px;
+  height: 44px;
+  margin: 0 12px 0 0;
+  padding: 10px;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.site-header__menu-bar {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: var(--text-inverse);
+  border-radius: 1px;
+  transition: transform 0.25s ease, opacity 0.2s ease;
+  transform-origin: center;
+}
+
+.site-header.is-menu-open .site-header__menu-bar:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.site-header.is-menu-open .site-header__menu-bar:nth-child(2) {
+  opacity: 0;
+}
+
+.site-header.is-menu-open .site-header__menu-bar:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
 }
 
 .site-header__nav {
@@ -226,6 +268,11 @@ body {
   opacity: 1;
 }
 
+/* C は描画中〜太線表示中は通常合成。乗算はディテール側に任せる */
+.fv-logo .draw-stroke[data-draw='c'] {
+  mix-blend-mode: normal;
+}
+
 /* ディテール先行フェードイン → 太線を遅らせてフェードアウト（重なりで溶ける） */
 .fv-logo.is-morphed .fv-logo__simple {
   opacity: 0;
@@ -323,61 +370,133 @@ body {
 }
 
 @media (max-width: 1100px) {
-  .site-header.is-settled {
-    height: auto;
-    min-height: var(--header-height);
-  }
-
   .site-header__inner {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 16px;
-    height: auto;
-    padding: 18px 0;
+    position: relative;
+    align-items: center;
   }
 
   .site-header__brand {
-    gap: 16px;
-    padding: 0 16px;
+    gap: 12px;
+    padding: 0 12px 0 16px;
     min-width: 0;
+    flex: 1;
   }
 
   .site-header__logo {
-    width: 90px;
+    width: 84px;
     height: auto;
   }
 
   .site-header__title {
-    font-size: 13px;
-    letter-spacing: 1.6px;
+    font-size: 12px;
+    letter-spacing: 1.4px;
     overflow: hidden;
     text-overflow: ellipsis;
   }
 
+  .site-header__menu-btn {
+    display: flex;
+  }
+
   .site-header__nav {
-    padding: 0 16px 8px;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 40;
+    display: block;
     width: 100%;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
+    padding: 8px 0 16px;
+    background: var(--brand-secondary);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(-6px);
+    transition: opacity 0.22s ease, transform 0.22s ease, visibility 0.22s;
+  }
+
+  .site-header.is-menu-open .site-header__nav {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0);
   }
 
   .site-header__nav-list {
+    flex-direction: column;
     flex-wrap: nowrap;
+    align-items: stretch;
+    gap: 0;
+  }
+
+  .site-header__nav-item {
+    width: 100%;
+  }
+
+  .site-header__nav-item:not(:last-child)::after {
+    display: none;
+  }
+
+  .site-header__nav-link {
+    display: block;
+    padding: 14px 20px;
+    font-size: 14px;
+    border-top: 1px solid rgba(255, 255, 255, 0.18);
   }
 
   .fv-hero {
-    gap: 36px;
+    justify-content: center;
+    gap: 24px;
     border-bottom-left-radius: 48px;
     border-bottom-right-radius: 48px;
-    padding: 48px 16px 72px;
+    /* 下余白でブロック重心を上げ、ロゴを画面中央付近へ */
+    padding: 16px 16px min(22vh, 160px);
+  }
+
+  .fv-pattern {
+    width: 720px;
+    height: 1024px;
+    top: calc(100% - 920px);
   }
 
   .fv-logo {
-    margin-bottom: 40px;
+    width: min(532px, 78vw);
+    margin-bottom: 20px;
+  }
+
+  /* ロゴ位置はそのまま、かちそーだけ左へ寄せてはみ出し防止 */
+  .fv-kachiso {
+    left: 56%;
+    top: 66%;
+    width: 46%;
   }
 
   .fv-title {
     letter-spacing: 0.18em;
+  }
+}
+
+@media (max-width: 480px) {
+  .fv-hero {
+    padding: 10px 14px min(20vh, 140px);
+    gap: 20px;
+  }
+
+  .fv-pattern {
+    width: 560px;
+    height: 796px;
+    top: calc(100% - 760px);
+  }
+
+  .fv-logo {
+    width: min(532px, 84vw);
+    margin-bottom: 16px;
+  }
+
+  .fv-kachiso {
+    left: 54%;
+    top: 65%;
+    width: 44%;
   }
 }
 
