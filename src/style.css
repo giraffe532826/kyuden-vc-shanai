@@ -494,8 +494,8 @@ body {
 
   .fv-logo {
     width: min(532px, 78vw);
-    /* SP: ロゴマーク〜ロゴタイプの余白を広げる */
-    margin-bottom: 96px;
+    /* かちそー〜タイトルの間を開ける */
+    margin-bottom: 56px;
   }
 
   /* SP: 高さはそのまま、左右中央へ */
@@ -537,7 +537,7 @@ body {
 
   .fv-logo {
     width: min(532px, 84vw);
-    margin-bottom: 112px;
+    margin-bottom: 64px;
   }
 
   .fv-kachiso {
