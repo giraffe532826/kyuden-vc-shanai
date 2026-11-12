@@ -9,6 +9,9 @@
   --font-nav: "Inter", "Hiragino Sans", "Hiragino Kaku Gothic ProN",
     "Noto Sans JP", "Yu Gothic", sans-serif;
   --header-height: 90px;
+  /* スマホブラウザの実表示高さ。JSで上書き、未対応時は dvh/vh */
+  --app-height: 100vh;
+  --app-height: 100dvh;
 }
 
 *,
@@ -33,14 +36,17 @@ body {
 }
 
 #app {
-  min-height: 100vh;
+  min-height: var(--app-height);
   max-width: 100%;
   overflow-x: clip;
 }
 
 .fv {
   position: relative;
-  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  height: var(--app-height);
+  min-height: var(--app-height);
   max-width: 100%;
   overflow-x: clip;
 }
@@ -49,7 +55,8 @@ body {
 .site-header {
   position: relative;
   z-index: 30;
-  height: 100vh;
+  flex-shrink: 0;
+  height: var(--app-height);
   width: 100%;
   max-width: 100%;
   background: var(--brand-secondary);
@@ -192,11 +199,13 @@ body {
   position: relative;
   z-index: 10;
   display: flex;
+  flex: 1 1 auto;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 56px;
-  min-height: calc(100vh - var(--header-height));
+  min-height: 0;
+  height: auto;
   padding: 72px 24px 96px;
   background: var(--hero-blue);
   border-bottom-left-radius: 90px;
@@ -462,10 +471,12 @@ body {
   }
 
   .fv-pattern {
-    /* 現行SPサイズの 1.5 倍 */
+    /* 現行SPサイズの 1.5 倍／青背景の中央基準 */
     width: 1080px;
     height: 1536px;
-    top: calc(100% - 1400px);
+    top: 50%;
+    left: 50%;
+    transform: translate3d(-50%, -50%, 0);
   }
 
   .fv-logo {
@@ -490,11 +501,13 @@ body {
   }
 
   .fv-tagline {
-    width: 70vw;
-    max-width: 70vw;
-    font-size: clamp(14px, 3.6vw, 18px);
-    letter-spacing: 0.08em;
-    line-height: 1.55;
+    width: max-content;
+    max-width: none;
+    white-space: nowrap;
+    /* 約20字を画面幅70%に1行で収める */
+    font-size: clamp(11px, 3.4vw, 16px);
+    letter-spacing: 0.04em;
+    line-height: 1.4;
   }
 }
 
@@ -505,10 +518,12 @@ body {
   }
 
   .fv-pattern {
-    /* 現行SPサイズの 1.5 倍 */
+    /* 現行SPサイズの 1.5 倍／青背景の中央基準 */
     width: 840px;
     height: 1194px;
-    top: calc(100% - 1180px);
+    top: 50%;
+    left: 50%;
+    transform: translate3d(-50%, -50%, 0);
   }
 
   .fv-logo {
@@ -529,10 +544,9 @@ body {
   }
 
   .fv-tagline {
-    width: 70vw;
-    max-width: 70vw;
-    font-size: clamp(13px, 3.8vw, 16px);
-    letter-spacing: 0.06em;
+    white-space: nowrap;
+    font-size: clamp(11px, 3.3vw, 14px);
+    letter-spacing: 0.03em;
   }
 }
 

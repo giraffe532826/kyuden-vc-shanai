@@ -1,5 +1,13 @@
 const wait = (ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms))
 
+/** スマホブラウザの実表示高さ（アドレスバー込みの 100vh ではなく見える領域） */
+export const getAppHeight = () =>
+  Math.round(window.visualViewport?.height ?? window.innerHeight)
+
+export const syncAppHeight = () => {
+  document.documentElement.style.setProperty('--app-height', `${getAppHeight()}px`)
+}
+
 const cancelAnimations = (...els: Array<Element | null | undefined>) => {
   els.forEach((el) => {
     if (!el || !('getAnimations' in el)) return
@@ -149,9 +157,12 @@ export async function playFvAnimation(els: FvElements) {
   cancelAnimations(els.header, els.headerInner, els.title, els.tagline, els.pattern)
   resetPatternUnits(els.pattern)
 
+  syncAppHeight()
+  const viewportH = getAppHeight()
+
   // reset
   els.header.classList.remove('is-settled')
-  els.header.style.height = '100vh'
+  els.header.style.height = `${viewportH}px`
   els.headerInner.style.opacity = '0'
   els.headerInner.style.transform = ''
   els.logo.classList.remove('is-drawing', 'is-morphed')
@@ -188,17 +199,18 @@ export async function playFvAnimation(els: FvElements) {
   if (!stillCurrent()) return
 
   // 1) 赤幕上昇 ＋ タイトルが幕下端から同じ速度で所定位置へ
-  const viewportH = window.innerHeight
+  syncAppHeight()
+  const curtainFrom = getAppHeight()
   els.title.style.opacity = '0'
   els.title.style.transform = 'none'
   const titleStartTop = els.title.getBoundingClientRect().top
-  const titleFromCurtain = viewportH - titleStartTop
+  const titleFromCurtain = curtainFrom - titleStartTop
 
   els.title.style.opacity = '1'
   els.title.style.transform = `translateY(${titleFromCurtain}px)`
 
   await Promise.all([
-    animateHeight(els.header, viewportH, headerTarget, CURTAIN_MS, CURTAIN_EASE),
+    animateHeight(els.header, curtainFrom, headerTarget, CURTAIN_MS, CURTAIN_EASE),
     els.title.animate(
       [
         { transform: `translateY(${titleFromCurtain}px)`, opacity: 1 },

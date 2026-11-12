@@ -4,7 +4,7 @@ import logoStroke from './assets/fv/logo-stroke.svg?raw'
 import logoDetail from './assets/fv/logo-detail-clean.svg?raw'
 import kachiso from './assets/fv/kachiso-asset.svg?raw'
 import patternFigma from './assets/fv/pattern-figma-clean.svg?raw'
-import { playFvAnimation } from './animate'
+import { playFvAnimation, syncAppHeight } from './animate'
 
 const navItems = [
   { label: 'プロジェクト紹介', href: '#project' },
@@ -15,7 +15,15 @@ const navItems = [
 
 const app = document.querySelector<HTMLDivElement>('#app')!
 
+const bindAppHeight = () => {
+  syncAppHeight()
+  window.addEventListener('resize', syncAppHeight)
+  window.visualViewport?.addEventListener('resize', syncAppHeight)
+  window.visualViewport?.addEventListener('scroll', syncAppHeight)
+}
+
 const mount = () => {
+  bindAppHeight()
   app.innerHTML = `
     <div class="fv">
       <header class="site-header" data-node-id="111:10834">
