@@ -494,15 +494,16 @@ body {
 
   .fv-logo {
     width: min(532px, 78vw);
-    /* かちそー〜タイトルの間を開ける */
-    margin-bottom: 56px;
+    /* SP: ロゴマーク〜ロゴタイプの余白を広げる */
+    margin-bottom: 96px;
   }
 
-  /* ロゴ位置はそのまま、かちそーだけ左へ寄せ／やや下げる */
+  /* SP: 高さはそのまま、左右中央へ */
   .fv-kachiso {
-    left: 56%;
+    left: 50%;
     top: 78%;
     width: 46%;
+    transform: translateX(-50%);
   }
 
   .fv-title {
@@ -536,13 +537,14 @@ body {
 
   .fv-logo {
     width: min(532px, 84vw);
-    margin-bottom: 64px;
+    margin-bottom: 112px;
   }
 
   .fv-kachiso {
-    left: 54%;
+    left: 50%;
     top: 80%;
     width: 44%;
+    transform: translateX(-50%);
   }
 
   .fv-title {
