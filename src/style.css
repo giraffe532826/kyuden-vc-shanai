@@ -485,9 +485,9 @@ body {
     margin-bottom: 56px;
   }
 
-  /* ロゴ位置はそのまま、かちそーだけ左へ寄せ／やや下げる */
+  /* SP: かちそー左上を「！」赤丸付近へ（縦は維持、横だけ右へ） */
   .fv-kachiso {
-    left: 56%;
+    left: 78%;
     top: 78%;
     width: 46%;
   }
@@ -497,8 +497,9 @@ body {
     width: max-content;
     font-size: clamp(24px, 8vw, 48px);
     letter-spacing: 0.12em;
-    /* letter-spacing 末尾の空きで右寄りに見えるのを相殺 */
-    margin-right: -0.12em;
+    /* iOS で末尾 letter-spacing がはみ出し右寄りに見えるのを相殺 */
+    text-indent: 0.12em;
+    margin-right: 0;
     white-space: nowrap;
   }
 
@@ -509,7 +510,8 @@ body {
     /* 約20字を画面幅70%に1行で収める */
     font-size: clamp(11px, 3.4vw, 16px);
     letter-spacing: 0.04em;
-    margin-right: -0.04em;
+    text-indent: 0.04em;
+    margin-right: 0;
     line-height: 1.4;
   }
 }
@@ -535,7 +537,7 @@ body {
   }
 
   .fv-kachiso {
-    left: 54%;
+    left: 82%;
     top: 80%;
     width: 44%;
   }
@@ -544,14 +546,14 @@ body {
     max-width: 80vw;
     font-size: clamp(22px, 8.4vw, 34px);
     letter-spacing: 0.1em;
-    margin-right: -0.1em;
+    text-indent: 0.1em;
   }
 
   .fv-tagline {
     white-space: nowrap;
     font-size: clamp(11px, 3.3vw, 14px);
     letter-spacing: 0.03em;
-    margin-right: -0.03em;
+    text-indent: 0.03em;
   }
 }
 
