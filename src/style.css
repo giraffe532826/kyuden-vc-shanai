@@ -485,21 +485,27 @@ body {
     margin-bottom: 56px;
   }
 
-  /* SP: かちそー左上を「！」赤丸付近へ（縦は維持、横だけ右へ） */
+  /* ロゴ位置はそのまま、かちそーだけ左へ寄せ／やや下げる */
   .fv-kachiso {
-    left: 78%;
+    left: 56%;
     top: 78%;
     width: 46%;
   }
 
   .fv-title {
+    /*
+      原因: width:max-content + max-width:80vw だと文字が箱より長いとき
+      はみ出しが左基準になり、見た目だけ右に寄る。
+      → 幅を 80vw に固定して text-align:center で中央揃えする。
+    */
+    width: 80vw;
     max-width: 80vw;
-    width: max-content;
-    font-size: clamp(24px, 8vw, 48px);
-    letter-spacing: 0.12em;
-    /* iOS で末尾 letter-spacing がはみ出し右寄りに見えるのを相殺 */
-    text-indent: 0.12em;
+    box-sizing: content-box;
+    font-size: clamp(20px, 6.8vw, 40px);
+    letter-spacing: 0.08em;
+    text-indent: 0;
     margin-right: 0;
+    text-align: center;
     white-space: nowrap;
   }
 
@@ -507,10 +513,9 @@ body {
     width: max-content;
     max-width: none;
     white-space: nowrap;
-    /* 約20字を画面幅70%に1行で収める */
     font-size: clamp(11px, 3.4vw, 16px);
     letter-spacing: 0.04em;
-    text-indent: 0.04em;
+    text-indent: 0;
     margin-right: 0;
     line-height: 1.4;
   }
@@ -537,23 +542,22 @@ body {
   }
 
   .fv-kachiso {
-    left: 82%;
+    left: 54%;
     top: 80%;
     width: 44%;
   }
 
   .fv-title {
+    width: 80vw;
     max-width: 80vw;
-    font-size: clamp(22px, 8.4vw, 34px);
-    letter-spacing: 0.1em;
-    text-indent: 0.1em;
+    font-size: clamp(18px, 6.4vw, 28px);
+    letter-spacing: 0.06em;
   }
 
   .fv-tagline {
     white-space: nowrap;
     font-size: clamp(11px, 3.3vw, 14px);
     letter-spacing: 0.03em;
-    text-indent: 0.03em;
   }
 }
 
