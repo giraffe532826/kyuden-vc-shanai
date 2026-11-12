@@ -4,6 +4,7 @@ import logoStroke from './assets/fv/logo-stroke.svg?raw'
 import logoDetail from './assets/fv/logo-detail-clean.svg?raw'
 import kachiso from './assets/fv/kachiso-asset.svg?raw'
 import patternFigma from './assets/fv/pattern-figma-clean.svg?raw'
+import titleLogotype from './assets/fv/title-kyuden-vc-challenge.svg?raw'
 import { playFvAnimation, syncAppHeight } from './animate'
 
 const navItems = [
@@ -74,7 +75,10 @@ const mount = () => {
           <div class="fv-kachiso">${kachiso}</div>
         </div>
 
-        <h1 class="fv-title">KYUDEN VC CHALLENGE</h1>
+        <h1 class="fv-title">
+          <span class="fv-title__sr">KYUDEN VC CHALLENGE</span>
+          <span class="fv-title__logo" aria-hidden="true">${titleLogotype}</span>
+        </h1>
         <p class="fv-tagline">「かけあわせ」から生まれる、新しい価値。</p>
       </section>
 
