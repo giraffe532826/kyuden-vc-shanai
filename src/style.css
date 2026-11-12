@@ -494,15 +494,14 @@ body {
 
   .fv-title {
     /*
-      原因: width:max-content + max-width:80vw だと文字が箱より長いとき
-      はみ出しが左基準になり、見た目だけ右に寄る。
-      → 幅を 80vw に固定して text-align:center で中央揃えする。
+      中央寄せは幅80vw固定 + text-align で担保。
+      字間・サイズは変更前のまま維持する。
     */
     width: 80vw;
     max-width: 80vw;
     box-sizing: content-box;
-    font-size: clamp(20px, 6.8vw, 40px);
-    letter-spacing: 0.08em;
+    font-size: clamp(24px, 8vw, 48px);
+    letter-spacing: 0.12em;
     text-indent: 0;
     margin-right: 0;
     text-align: center;
@@ -550,8 +549,8 @@ body {
   .fv-title {
     width: 80vw;
     max-width: 80vw;
-    font-size: clamp(18px, 6.4vw, 28px);
-    letter-spacing: 0.06em;
+    font-size: clamp(22px, 8.4vw, 34px);
+    letter-spacing: 0.1em;
   }
 
   .fv-tagline {
