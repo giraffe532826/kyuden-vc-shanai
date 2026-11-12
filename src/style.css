@@ -262,6 +262,8 @@ body {
 
 .fv-logo__simple {
   opacity: 1;
+  /* ロゴ太線内だけ乗算し、青背景にはかけない */
+  isolation: isolate;
   /* リプレイ時は即リセット。モーフィング時だけ下の transition が効く */
   transition: opacity 0s linear;
 }
@@ -282,9 +284,9 @@ body {
   opacity: 1;
 }
 
-/* C は描画中〜太線表示中は通常合成。乗算はディテール側に任せる */
+/* C を V など同グループ内だけ乗算（isolation 配下） */
 .fv-logo .draw-stroke[data-draw='c'] {
-  mix-blend-mode: normal;
+  mix-blend-mode: multiply;
 }
 
 /* ディテール先行フェードイン → 太線を遅らせてフェードアウト（重なりで溶ける） */
